@@ -12,6 +12,10 @@ public class JsonParce : MonoBehaviour
     public VVP_IPC VvpIpc;
     public List<RegionPoint> RegionsPoints = new List<RegionPoint>();
 
+
+    public UILineRenderer LineRenderer;
+    
+    
     void Start()
     {
         // Debug.Log(kof.text);
@@ -44,6 +48,27 @@ public class JsonParce : MonoBehaviour
             regionPoint.points = points;
             RegionsPoints.Add(regionPoint);
             yield return null;
+        }
+
+        double minN = int.MaxValue;
+        double maxN = int.MinValue;
+        foreach (var point in GetPointByRegion("Архангельская область"))
+        {
+            if (minN > point.number)
+            {
+                minN = point.number;
+            }
+            if (maxN < point.number)
+            {
+                maxN = point.number;
+            }
+            //LineRenderer.points.Add(new Vector2((float)point.year, (float)point.number));
+        }
+        
+        foreach (var point in GetPointByRegion("Архангельская область"))
+        {
+            var s = maxN - minN;
+            //LineRenderer.points.Add(new Vector2((float)point.year-2015, (float)point.number-(float)minN));
         }
 
     }
